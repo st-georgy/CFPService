@@ -10,7 +10,7 @@ namespace CFPService.Domain.Abstractions.Repositories
         Task<Application?> GetAsync(Guid id);
         Task<IEnumerable<Application>> GetSubmittedAfterDateAsync(DateTime submittedAfter);
         Task<IEnumerable<Application>> GetUnsubmittedAfterDateAsync(DateTime unsubmittedOlderThan);
-        Task<Application?> UpdateAsync(Guid id, Guid? authorId, Activity? activity, string? title, string? description, string? outline);
+        Task<Application?> UpdateAsync(Guid id, Activity? activity, string? title, string? description, string? outline);
         Task<Guid> SubmitAsync(Guid id);
     }
 }

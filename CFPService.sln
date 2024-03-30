@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.API", "CFPService.API\CFPService.API.csproj", "{6A3B32E4-1CFB-4F9C-AC91-FDB03E42F0C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFPService.API", "CFPService.API\CFPService.API.csproj", "{6A3B32E4-1CFB-4F9C-AC91-FDB03E42F0C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.Domain", "CFPService.Domain\CFPService.Domain.csproj", "{63127662-EC00-4BA8-A1E0-A5C6121D9215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFPService.Domain", "CFPService.Domain\CFPService.Domain.csproj", "{63127662-EC00-4BA8-A1E0-A5C6121D9215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.Infrastructure", "CFPService.Infrastructure\CFPService.Infrastructure.csproj", "{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFPService.Infrastructure", "CFPService.Infrastructure\CFPService.Infrastructure.csproj", "{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.Application", "CFPService.Application\CFPService.Application.csproj", "{6767F5D2-F35E-4A80-8C37-AD6A9D7EEFDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{63127662-EC00-4BA8-A1E0-A5C6121D9215} = {63127662-EC00-4BA8-A1E0-A5C6121D9215}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,10 @@ Global
 		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6767F5D2-F35E-4A80-8C37-AD6A9D7EEFDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6767F5D2-F35E-4A80-8C37-AD6A9D7EEFDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6767F5D2-F35E-4A80-8C37-AD6A9D7EEFDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6767F5D2-F35E-4A80-8C37-AD6A9D7EEFDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

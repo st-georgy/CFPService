@@ -25,7 +25,7 @@ namespace CFPService.Domain.Entities
             Outline = outline;
         }
 
-        public static Application Create(Guid id, Guid authorId, Activity? activity, DateTime createdDate, DateTime? submittedDate, string title = "", string description = "", string outline = "")
+        public static Application Create(Guid id, Guid authorId, Activity? activity, DateTime createdDate, DateTime? submittedDate, string? title = "", string? description = "", string? outline = "")
         {
             if (id == Guid.Empty)
                 throw new ArgumentException("Id must be specified.", nameof(id));

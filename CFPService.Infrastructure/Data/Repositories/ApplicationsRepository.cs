@@ -61,19 +61,18 @@ namespace CFPService.Infrastructure.Data.Repositories
             return applications;
         }
 
-        public async Task<Application?> UpdateAsync(Guid id, Guid? authorId, Activity? activity, string? title, string? description, string? outline)
+        public async Task<Application?> UpdateAsync(Guid id, Activity? activity, string? title, string? description, string? outline)
         {
             var application = await _context.Applications
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (authorId is null && activity is null && title is null && description is null && outline is null)
+            if (activity is null && title is null && description is null && outline is null)
                 return application;
 
             await _context.Applications
                 .Where(a => a.Id == id)
                 .ExecuteUpdateAsync(u => u
-                    .SetProperty(a => a.AuthorId, a => authorId ?? a.AuthorId)
                     .SetProperty(a => a.Activity, a => activity ?? a.Activity)
                     .SetProperty(a => a.Title, a => title ?? a.Title)
                     .SetProperty(a => a.Description, a => description ?? a.Description)
