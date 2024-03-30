@@ -1,16 +1,16 @@
 ﻿using CFPService.Domain.Entities;
+using CFPService.Domain.Entities.Enums;
 
 namespace CFPService.Domain.Abstractions.Repositories
 {
     public interface IApplicationsRepository
     {
-        Task<Application> GetAsync(Guid id);
         Task<Guid> CreateAsync(Application application);
-        Task<Application> UpdateAsync(Application application);
-        Task DeleteAsync(Guid id);
-        Task SubmitAsync(Guid id);
-        Task<IEnumerable<Application>> GetSubmittedAfterAsync(DateTime submittedAfter);
-        Task<IEnumerable<Application>> GetUnsubmittedOlderThanAsync(DateTime unsubmittedOlderThan);
-        Task<Application> GetCurrentUnsubmittedAsync(Guid authorId);
+        Task<Guid> DeleteAsync(Guid id);
+        Task<Application?> GetAsync(Guid id);
+        Task<IEnumerable<Application>> GetSubmittedAfterDateAsync(DateTime submittedAfter);
+        Task<IEnumerable<Application>> GetUnsubmittedAfterDateAsync(DateTime unsubmittedOlderThan);
+        Task<Application?> UpdateAsync(Guid id, Guid? authorId, Activity? activity, string? title, string? description, string? outline);
+        Task<Guid> SubmitAsync(Guid id);
     }
 }

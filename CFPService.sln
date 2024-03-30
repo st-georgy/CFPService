@@ -5,6 +5,10 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.API", "CFPService.API\CFPService.API.csproj", "{6A3B32E4-1CFB-4F9C-AC91-FDB03E42F0C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.Domain", "CFPService.Domain\CFPService.Domain.csproj", "{63127662-EC00-4BA8-A1E0-A5C6121D9215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFPService.Infrastructure", "CFPService.Infrastructure\CFPService.Infrastructure.csproj", "{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{6A3B32E4-1CFB-4F9C-AC91-FDB03E42F0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A3B32E4-1CFB-4F9C-AC91-FDB03E42F0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A3B32E4-1CFB-4F9C-AC91-FDB03E42F0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63127662-EC00-4BA8-A1E0-A5C6121D9215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63127662-EC00-4BA8-A1E0-A5C6121D9215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63127662-EC00-4BA8-A1E0-A5C6121D9215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63127662-EC00-4BA8-A1E0-A5C6121D9215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62DFA2A6-EC7B-4FC8-B674-0357A1FC3F84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
