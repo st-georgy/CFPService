@@ -38,6 +38,11 @@ namespace CFPService.API
             {
                 endpoints.MapControllers();
             });
+
+            using var scope = app.ApplicationServices.CreateScope();
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<ServiceDbContext>();
+            context.Database.Migrate();
         }
     }
 }
