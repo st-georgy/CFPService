@@ -1,5 +1,6 @@
 ﻿using CFPService.Domain.Abstractions.Repositories;
 using CFPService.Domain.Abstractions.Services;
+using CFPService.Domain.Entities;
 using CFPService.Domain.Entities.Enums;
 
 namespace CFPService.Application.Services
@@ -9,12 +10,19 @@ namespace CFPService.Application.Services
         private readonly IApplicationsRepository _applicationsRepository = applicationsRepository;
         private readonly IDraftsRepository _draftsRepository = draftsRepository;
 
-        public async Task<Domain.Entities.Application> CreateApplicationAsync(Guid authorId, Activity? activity, DateTime createdDate, string? title, string? description, string? outline)
+        public async Task<Domain.Entities.Application> CreateApplicationAsync(Guid authorId, Activity? activity, DateTime createdDate, string? name, string? description, string? outline)
         {
-            var guid = Guid.NewGuid();
-            var application = Domain.Entities.Application.Create(guid, authorId, activity, createdDate, null, title, description, outline);
+            var check_draft = await _draftsRepository.GetByAuthorIdAsync(authorId);
+
+            if (check_draft is not null)
+                throw new InvalidOperationException("User can have only 1 draft.");
+
+            var applicationId = Guid.NewGuid();
+            var application = Domain.Entities.Application.Create(applicationId, authorId, activity, createdDate, null, name, description, outline);
+            var draft = Draft.Create(applicationId, authorId);
 
             await _applicationsRepository.CreateAsync(application);
+            await _draftsRepository.CreateAsync(draft);
 
             return application;
         }
@@ -24,10 +32,8 @@ namespace CFPService.Application.Services
             _ = await _applicationsRepository.GetAsync(id)
                 ?? throw new ArgumentException("Application with stated id was not found");
 
-            var draft = await _draftsRepository.GetAsync(id);
-            
-            if (draft is not null)
-                throw new InvalidOperationException("Submitted application can not be deleted.");
+            _ = await _draftsRepository.GetAsync(id)
+                ?? throw new InvalidOperationException("Submitted application can not be deleted.");
 
             return await _applicationsRepository.DeleteAsync(id);
         }
@@ -51,14 +57,26 @@ namespace CFPService.Application.Services
             => await _applicationsRepository.GetSubmittedAfterDateAsync(submittedAfter);
 
         public async Task<IEnumerable<Domain.Entities.Application>> GetUnsubmittedApplicationsAfterDateAsync(DateTime unsubmittedOlderThan)
-            => await _applicationsRepository.GetUnsubmittedAfterDateAsync(unsubmittedOlderThan);
+        { 
+            var applications = await _applicationsRepository.GetUnsubmittedAfterDateAsync(unsubmittedOlderThan);
+            var draftIds = (await _draftsRepository.GetAllAsync()).Select(d => d.ApplicationId);
+
+            return applications.Where(a => draftIds.Contains(a.Id));
+        }
 
         public async Task SubmitApplicationAsync(Guid id)
         {
-            var application = await _applicationsRepository.GetAsync(id);
+            var application = await _applicationsRepository.GetAsync(id)
+                ?? throw new ArgumentException("Application with stated id was not found");
 
-            if (application is null)
-                return;
+            if (application.Id == Guid.Empty
+                || application.AuthorId == Guid.Empty
+                || string.IsNullOrWhiteSpace(application.Name)
+                || string.IsNullOrWhiteSpace(application.Description)
+                || string.IsNullOrWhiteSpace(application.Outline)
+                || application.Activity is null
+                || !Enum.IsDefined(typeof(Activity), application.Activity))
+                throw new InvalidOperationException("All application field must be filled.");
 
             var draft = await _draftsRepository.GetAsync(id);
 
@@ -69,7 +87,15 @@ namespace CFPService.Application.Services
             await _draftsRepository.RemoveAsync(id);
         }
 
-        public async Task<Domain.Entities.Application?> UpdateApplicationAsync(Guid applicationId, Activity activity, string? name, string? description, string? outline)
-            => await _applicationsRepository.UpdateAsync(applicationId, activity, name, description, outline);  
+        public async Task<Domain.Entities.Application?> UpdateApplicationAsync(Guid applicationId, Activity? activity, string? name, string? description, string? outline)
+        {
+            _ = await _applicationsRepository.GetAsync(applicationId)
+                ?? throw new ArgumentException("Application with stated id was not found");
+
+            _ = await _draftsRepository.GetAsync(applicationId)
+                ?? throw new InvalidOperationException("Submitted application can not be edited."); ;
+
+            return await _applicationsRepository.UpdateAsync(applicationId, activity, name, description, outline);
+        }
     }
 }

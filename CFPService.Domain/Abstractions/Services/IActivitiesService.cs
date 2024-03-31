@@ -4,6 +4,6 @@ namespace CFPService.Domain.Abstractions.Services
 {
     public interface IActivitiesService
     {
-        Task<IEnumerable<Activity>> GetActivities();
+        IEnumerable<Activity> GetActivities();
     }
 }

@@ -74,9 +74,13 @@ namespace CFPService.Infrastructure.Data.Repositories
                 .Where(a => a.Id == id)
                 .ExecuteUpdateAsync(u => u
                     .SetProperty(a => a.Activity, a => activity ?? a.Activity)
-                    .SetProperty(a => a.Title, a => title ?? a.Title)
+                    .SetProperty(a => a.Name, a => title ?? a.Name)
                     .SetProperty(a => a.Description, a => description ?? a.Description)
                     .SetProperty(a => a.Outline, a => outline ?? a.Outline));
+
+            application = await _context.Applications
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             return application;
         }

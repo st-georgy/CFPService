@@ -5,8 +5,8 @@ namespace CFPService.Domain.Abstractions.Services
 {
     public interface IApplicationsService
     {
-        Task<Application> CreateApplicationAsync(Guid authorId, Activity? activity, DateTime createdDate, string? title, string? description, string? outline);
-        Task<Application?> UpdateApplicationAsync(Guid applicationId, Activity activity, string? name, string? description, string? outline);
+        Task<Application> CreateApplicationAsync(Guid authorId, Activity? activity, DateTime createdDate, string? name, string? description, string? outline);
+        Task<Application?> UpdateApplicationAsync(Guid applicationId, Activity? activity, string? name, string? description, string? outline);
         Task<Guid> DeleteApplicationAsync(Guid id);
         Task SubmitApplicationAsync(Guid id);
         Task<IEnumerable<Application>> GetSubmittedApplicationsAfterDateAsync(DateTime submittedAfter);

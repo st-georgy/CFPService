@@ -13,18 +13,17 @@ namespace CFPService.Infrastructure.Data.Configurations
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Activity)
-                .IsRequired();
+                .HasConversion<string>()
+                .HasMaxLength(50);
 
-            builder.Property(a => a.Title)
-                .HasMaxLength(100)
-                .IsRequired();
+            builder.Property(a => a.Name)
+                .HasMaxLength(100);
 
             builder.Property(a => a.Description)
                 .HasMaxLength(300);
 
             builder.Property(a => a.Outline)
-                .HasMaxLength(1000)
-                .IsRequired();
+                .HasMaxLength(1000);
 
             builder.Property(a => a.CreatedDate)
                 .HasDefaultValueSql("now()");

@@ -13,6 +13,10 @@ namespace CFPService.Infrastructure.Data.Configurations
             builder.HasKey(d => new { d.AuthorId, d.ApplicationId });
 
             builder.HasAlternateKey(d => d.AuthorId);
+
+            builder.HasOne<Application>()
+                .WithMany()
+                .HasForeignKey(d => d.ApplicationId);
         }
     }
 }
