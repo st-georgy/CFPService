@@ -26,9 +26,12 @@ namespace CFPService.API
             services.AddScoped<IApplicationsService, ApplicationsService>();
             services.AddScoped<IServiceDbContext, ServiceDbContext>();
             services.AddScoped<IActivitiesService, ActivitiesService>();
+
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
 
@@ -43,6 +46,12 @@ namespace CFPService.API
             var services = scope.ServiceProvider;
             var context = services.GetRequiredService<ServiceDbContext>();
             context.Database.Migrate();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
         }
     }
 }
